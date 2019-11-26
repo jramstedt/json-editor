@@ -58,6 +58,11 @@ export var bootstrap4Theme = AbstractTheme.extend({
     return el
   },
 
+  getSwitcher: function (options) {
+    var switcher = this.getSelectInput(options, false)
+    return switcher
+  },
+
   getContainer: function () {
     var el = document.createElement('div')
     if (!this.options.object_indent) el.classList.add('je-noindent')

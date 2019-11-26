@@ -13,6 +13,10 @@ export var MultipleEditor = AbstractEditor.extend({
       if (this.editors[this.type]) this.editors[this.type].register()
     }
     this._super()
+
+    if (this.switcher) {
+      this.switcher.setAttribute('name', this.formname)
+    }
   },
   unregister: function () {
     this._super()
@@ -21,6 +25,9 @@ export var MultipleEditor = AbstractEditor.extend({
         if (!this.editors[i]) continue
         this.editors[i].unregister()
       }
+    }
+    if (this.switcher) {
+      this.switcher.removeAttribute('name')
     }
   },
   getNumColumns: function () {
@@ -49,6 +56,10 @@ export var MultipleEditor = AbstractEditor.extend({
     }
     this.switcher.disabled = true
     this._super()
+  },
+  afterInputReady: function () {
+    var self = this
+    self.theme.afterInputReady(self.switcher)
   },
   switchEditor: function (i) {
     var self = this
@@ -167,7 +178,6 @@ export var MultipleEditor = AbstractEditor.extend({
     var container = this.container
 
     this.header = this.label = this.theme.getFormInputLabel(this.getTitle(), this.isRequired())
-    this.container.appendChild(this.header)
 
     this.switcher = this.theme.getSwitcher(this.display_text)
     container.appendChild(this.switcher)
@@ -178,6 +188,9 @@ export var MultipleEditor = AbstractEditor.extend({
       self.switchEditor(self.display_text.indexOf(this.value))
       self.onChange(true)
     })
+
+    this.control = this.theme.getFormControl(this.label, this.switcher, undefined, undefined)
+    this.container.appendChild(this.control)
 
     this.editor_holder = document.createElement('div')
     container.appendChild(this.editor_holder)
@@ -209,6 +222,11 @@ export var MultipleEditor = AbstractEditor.extend({
     })
 
     this.switchEditor(0)
+
+    // Any special formatting that needs to happen after the input is added to the dom
+    window.requestAnimationFrame(function () {
+      self.afterInputReady()
+    })
   },
   onChildEditorChange: function (editor) {
     if (this.editors[this.type]) {
