@@ -51,8 +51,6 @@ export var TableEditor = ArrayEditor.extend({
       this.header.textContent = this.getTitle()
       this.title = this.theme.getHeader(this.header)
       this.container.appendChild(this.title)
-      this.title_controls = this.theme.getHeaderButtonHolder()
-      this.title.appendChild(this.title_controls)
       if (this.schema.description) {
         this.description = this.theme.getDescription(this.schema.description)
         this.container.appendChild(this.description)
@@ -393,7 +391,7 @@ export var TableEditor = ArrayEditor.extend({
     this.toggle_button = this.getButton('', 'collapse', this.translate('button_collapse'))
     this.toggle_button.classList.add('json-editor-btntype-toggle')
     this.toggle_button.style.margin = '0 10px 0 0'
-    if (this.title_controls) {
+    if (this.controls) {
       this.title.insertBefore(this.toggle_button, this.title.childNodes[0])
       this.toggle_button.addEventListener('click', function (e) {
         e.preventDefault()

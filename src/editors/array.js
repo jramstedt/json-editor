@@ -112,8 +112,6 @@ export var ArrayEditor = AbstractEditor.extend({
       this.header.textContent = this.getTitle()
       this.title = this.theme.getHeader(this.header)
       this.container.appendChild(this.title)
-      this.title_controls = this.theme.getHeaderButtonHolder()
-      this.title.appendChild(this.title_controls)
       if (this.schema.description) {
         this.description = this.theme.getDescription(this.schema.description)
         this.container.appendChild(this.description)
@@ -155,8 +153,6 @@ export var ArrayEditor = AbstractEditor.extend({
       this.container.appendChild(this.title)
       this.panel = this.theme.getIndentedPanel()
       this.container.appendChild(this.panel)
-      this.title_controls = this.theme.getHeaderButtonHolder()
-      this.title.appendChild(this.title_controls)
       this.controls = this.theme.getHeaderButtonHolder()
       this.title.appendChild(this.controls)
       this.row_holder = document.createElement('div')
@@ -255,7 +251,7 @@ export var ArrayEditor = AbstractEditor.extend({
     ret.build()
     ret.postBuild()
 
-    if (!ret.title_controls) {
+    if (!ret.controls) {
       ret.array_controls = this.theme.getButtonHolder()
       holder.appendChild(ret.array_controls)
     }
@@ -494,7 +490,7 @@ export var ArrayEditor = AbstractEditor.extend({
       })
     }
 
-    var controlsHolder = self.rows[i].title_controls || self.rows[i].array_controls
+    var controlsHolder = self.rows[i].controls || self.rows[i].array_controls
 
     // Buttons to delete row, move row up, and move row down
     if (!self.hide_delete_buttons) {
