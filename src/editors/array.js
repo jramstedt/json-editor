@@ -560,6 +560,7 @@ export var ArrayEditor = AbstractEditor.extend({
         self.setValue(value)
         self.refreshValue(true)
         self.onChange(true)
+        self.jsoneditor.trigger('copyRow', self.rows[i])
       })
 
       controlsHolder.appendChild(self.rows[i].copy_button)
