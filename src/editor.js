@@ -155,6 +155,9 @@ export var AbstractEditor = Class.extend({
       }
     } else wrapper.style.display = displayMode
   },
+  createContainer: function () {
+    return this.theme.getGridColumn()
+  },
   setContainer: function (container) {
     this.container = container
     if (this.schema.id) this.container.setAttribute('data-schemaid', this.schema.id)

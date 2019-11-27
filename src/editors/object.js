@@ -674,12 +674,14 @@ export var ObjectEditor = AbstractEditor.extend({
       }
 
       $each(this.editors, function (key, editor) {
-        var aPane = self.theme.getTabContent()
-        var holder = self.theme.getGridColumn()
-        var isObjOrArray = !!((editor.schema && (editor.schema.type === 'object' || editor.schema.type === 'array')))
-        aPane.isObjOrArray = isObjOrArray
+        var holder = editor.createContainer()
 
         if (isCategoriesFormat) {
+          var isObjOrArray = !!((editor.schema && (editor.schema.type === 'object' || editor.schema.type === 'array')))
+
+          var aPane = self.theme.getTabContent()
+          aPane.isObjOrArray = isObjOrArray
+
           if (isObjOrArray) {
             var singleRowContainer = self.theme.getGridContainer()
             singleRowContainer.appendChild(holder)
